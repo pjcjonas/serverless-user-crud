@@ -1,0 +1,41 @@
+{
+  "name": "serverless-user-crud",
+  "version": "1.0.0",
+  "description": "This is a simple user crud api using localstack and serverless",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest",
+    "start:setup": "node ./setup/index.mjs",
+    "start:deploy": "NODE_ENV=development serverless deploy -s local",
+    "start:deployw": "set NODE_ENV=development& serverless deploy -s local",
+    "start": "yarn run start:setup && yarn run start:deploy",
+    "startw": "yarn run start:setup && yarn run start:deployw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjcjonas/serverless-user-crud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pjcjonas/serverless-user-crud/issues"
+  },
+  "homepage": "https://github.com/pjcjonas/serverless-user-crud#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.120",
+    "esbuild": "^0.19.2",
+    "serverless": "^3.34.0",
+    "serverless-esbuild": "^1.46.0",
+    "serverless-localstack": "^1.1.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.410.0",
+    "@aws-sdk/client-ssm": "^3.410.0",
+    "@middy/core": "^4.6.2",
+    "@middy/http-cors": "^4.6.2",
+    "@middy/http-error-handler": "^4.6.2",
+    "@middy/http-json-body-parser": "^4.6.2",
+    "aws-sdk": "^2.1455.0",
+    "middy": "^0.36.0"
+  }
+}

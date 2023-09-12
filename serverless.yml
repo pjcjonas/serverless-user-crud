@@ -1,0 +1,39 @@
+service: sls-user-crud
+useDotenv: true
+
+plugins:
+  - serverless-esbuild
+  - serverless-localstack
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: ${opt:region, 'eu-west-1'}
+  stage: ${opt:stage, 'prd'}
+  memorySize: 128
+  timeout: 12
+  apiGateway: {}
+  vpc: {}
+  deploymentBucket:
+    name: ${ssm:/${env:SLS_STACK_PARAMETER_STORE_PATH}/DEPLOYMENT_BUCKET}
+  environment:
+    PARAMETER_STORE_PATH: ${env:PARAMETER_STORE_PATH, ''}
+
+function:
+  hello:
+    handler: ./src/handlers/hello.handler
+    events:
+      - http:
+          path: /hello
+          method: get
+          cors: true
+
+custom:
+  esbuild:
+    config: "./esbuild.config.js"
+  localstack:
+    stage:
+      - local
+    autostart: false
+    lambda:
+      mountCode: true
