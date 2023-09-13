@@ -1,22 +1,23 @@
-import { SSM } from "@aws-sdk/client-ssm"
+import AWS from 'aws-sdk'
 
 
 const run = async (env) => {
-    const ssm = new SSM({
-        endpoint: 'http://127.0.0.1:4566',
-        region: 'eu-west-1',
+    const ssmEnv = Object.entries(env).filter(([x]) => x.startsWith('/'))
+    const ssm = new AWS.SSM({
+        endpoint: 'http://localhost:4566',
+        region: "eu-west-1",
         accessKeyId: 'x',
         secretAccessKey: 'x',
     });
 
-    for (const [name, value] of Object.entries(env)) {
-        console.log(`Setting ${name} to ${value}`);
+    for (const [name, value] of ssmEnv) {
+        const type = value.includes(',') ? 'StringList' : 'String'
         await ssm.putParameter({
             Name: name,
             Value: value,
-            Type: 'String',
+            Type: type,
             Overwrite: true,
-        });
+        }).promise().then((x) => console.log(x.$response));
     }
 
     console.log("Updating SSM parameters complete");
@@ -27,7 +28,7 @@ const run = async (env) => {
         const result = await ssm.getParametersByPath({
             Path: "/", Recursive: true, NextToken: nextToken
         });
-        console.log("Parameters:", result);
+        result.Parameters?.map(({ Name }) => ({ Name })).forEach((x) => console.log(x))
         nextToken = result.NextToken;
     } while (nextToken);
 }
