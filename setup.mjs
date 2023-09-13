@@ -1,6 +1,6 @@
 import { readFile } from 'fs/promises'
-import { run as ssm } from './ssm.mjs'
-import { run as s3 } from './s3.mjs'
+import { run as ssm } from './setup-ssm.mjs'
+import { run as s3 } from './setup-s3.mjs'
 
 const parseEnv = (envFile) => {
   return envFile

@@ -13,7 +13,7 @@ const run = async (env) => {
   if (buckets.Buckets?.find((x) => x.Name === env['/sls-stack-user/DEPLOYMENT_BUCKET'])) {
     console.log('deployment bucket found - skipping create')
     return
-  }
+  }IZy7m4YuR2TW
 
   console.log(`creating ${env['/sls-stack-user/DEPLOYMENT_BUCKET']}`)
 
