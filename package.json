@@ -5,8 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "test": "jest",
-    "start:setup": "node ./setup/index.mjs",
+    "start:setup": "node ./setup.mjs",
     "start:deploy": "NODE_ENV=development serverless deploy -s local",
+    "start:doctor": "NODE_ENV=development serverless doctor",
     "start:deployw": "set NODE_ENV=development& serverless deploy -s local",
     "start": "yarn run start:setup && yarn run start:deploy",
     "startw": "yarn run start:setup && yarn run start:deployw"
@@ -34,6 +35,7 @@
     "@middy/core": "^4.6.2",
     "@middy/http-cors": "^4.6.2",
     "@middy/http-error-handler": "^4.6.2",
+    "@middy/http-header-normalizer": "^4.6.2",
     "@middy/http-json-body-parser": "^4.6.2",
     "aws-sdk": "^2.1455.0",
     "middy": "^0.36.0"
