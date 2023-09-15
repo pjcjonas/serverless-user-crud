@@ -29,6 +29,74 @@ functions:
           method: get
           cors: true
 
+  # User functions
+  createUser:
+    handler: ./src/handlers/createUser.handler
+    events:
+      - http:
+          path: /users
+          method: post
+          cors: true
+  getUser:
+    handler: ./src/handlers/getUser.handler
+    events:
+      - http:
+          path: /users/{user_id}
+          method: get
+          cors: true
+  getUsers:
+    handler: ./src/handlers/getUsers.handler
+    events:
+      - http:
+          path: /users
+          method: get
+          cors: true
+  updateUser:
+    handler: ./src/handlers/updateUser.handler
+    events:
+      - http:
+          path: /users/{user_id}
+          method: put
+          cors: true
+
+  # User Task functions
+  createUserTask:
+    handler: ./src/handlers/createUserTask.handler
+    events:
+      - http:
+          path: /users/{user_id}/task
+          method: post
+          cors: true
+  getUserTasks:
+    handler: ./src/handlers/getUserTasks.handler
+    events:
+      - http:
+          path: /users/{user_id}/task
+          method: get
+          cors: true
+  getTasks:
+    handler: ./src/handlers/getTasks.handler
+    events:
+      - http:
+          path: /users/{user_id}/task
+          method: get
+          cors: true
+  updateUserTask:
+    handler: ./src/handlers/updateUserTask.handler
+    events:
+      - http:
+          path: /users/{user_id}/task/{task_id}
+          method: put
+          cors: true
+  deleteUserTask:
+    handler: ./src/handlers/deleteUserTask.handler
+    events:
+      - http:
+          path: /users/{user_id}/task/{task_id}
+          method: delete
+          cors: true
+  
+
 custom:
   esbuild:
     config: "./esbuild.config.js"
