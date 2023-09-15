@@ -5,7 +5,7 @@ const run = async (env) => {
     const ssmEnv = Object.entries(env).filter(([x]) => x.startsWith('/'))
     const ssm = new AWS.SSM({
         endpoint: 'http://localhost:4566',
-        region: "eu-west-1s",
+        region: "eu-west-1",
         accessKeyId: 'x',
         secretAccessKey: 'x',
     });
