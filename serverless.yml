@@ -4,6 +4,7 @@ useDotenv: true
 plugins:
   - serverless-esbuild
   - serverless-localstack
+  - serverless-offline
 
 provider:
   name: aws
@@ -28,6 +29,14 @@ functions:
           path: /hello
           method: get
           cors: true
+
+  migrationUp:
+    timeout: 300
+    handler: src/handlers/migrations.up
+  
+  migrationDown:
+    timeout: 300
+    handler: src/handlers/migrations.down
 
   # User functions
   createUser:
@@ -100,6 +109,10 @@ functions:
 custom:
   esbuild:
     config: "./esbuild.config.js"
+  serverless-offline:
+    httpPort: 4000
+    lambdaPort: 4002
+    useWorkerThreads: true
   localstack:
     stages:
       - local
