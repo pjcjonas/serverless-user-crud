@@ -1,28 +1,24 @@
 import { DataTypes, Transaction } from 'sequelize'
 import path from 'path'
 
-const name = '20230915203751-create-user.ts'
+const name = '20230916051725-create-task.ts'
 const __dirname = path.dirname(name)
 const location = __dirname + '/' + name
 
 const up = async ({ context: queryInterface }: any) => {
   await queryInterface.sequelize.transaction(async (t: Transaction) => {
-    await queryInterface.createTable('Users', {
-      userUuid: {
+    await queryInterface.createTable('Tasks', {
+      taskUuid: {
         allowNull: false,
         autoIncrement: false,
         primaryKey: true,
         type: DataTypes.UUID
       },
-      firstName: {
-        type: DataTypes.STRING,
+      userUuid: {
+        type: DataTypes.UUID,
         allowNull: false
       },
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      email: {
+      taskDescription: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -44,7 +40,7 @@ const up = async ({ context: queryInterface }: any) => {
 
 const down = async ({ context: queryInterface }: any) => {
   await queryInterface.sequelize.transaction(async (t: Transaction) => {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Tasks');
   })
 }
 

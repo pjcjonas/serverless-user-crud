@@ -1,33 +1,29 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-export class User extends Model {
+export class Task extends Model {
   [x: string]: any
 }
 
-export const UserModel = (sequelize?: Sequelize) => {
-  return User.init({
-    userUuid: {
+export const TaskModel = (sequelize?: Sequelize) => {
+  return Task.init({
+    taskUuid: {
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
       autoIncrement: false
     },
-    firstName: {
-      type: DataTypes.STRING,
+    userUuid: {
+      type: DataTypes.UUID,
       allowNull: false,
     },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
+    taskDescription: {
       type: DataTypes.STRING,
       allowNull: false,
     }
   }, {
     sequelize: sequelize ?? new Sequelize(),
-    modelName: 'Users',
-    tableName: 'users',
+    modelName: 'Tasks',
+    tableName: 'tasks',
     timestamps: true,
     deletedAt: true
   });
