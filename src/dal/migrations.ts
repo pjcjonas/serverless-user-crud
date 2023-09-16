@@ -3,10 +3,12 @@ import { connect } from "."
 
 // When adding imports for new migrations, add them to this list
 import * as migration20230915203751 from "./migrations/20230915203751-create-user"
+import * as migration20230916051725 from "./migrations/20230916051725-create-task"
 
 // Include the new migration in the list
 const migrationList: any[] = [
-    migration20230915203751
+    migration20230915203751,
+    migration20230916051725
 ];
 
 
