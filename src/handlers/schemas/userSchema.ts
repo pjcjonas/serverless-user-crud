@@ -15,10 +15,7 @@ import {z} from 'zod';
 export const createUserSchema = z.object({
     firstName: z.string(),
     lastName: z.string(),
-    email: z.string().email(),
-    createdAt: z.date().optional(),
-    updatedAt: z.date().optional(),
-    deletedAt: z.date().optional(),
+    email: z.string().email()
 });
 
 /**
@@ -30,7 +27,6 @@ export const createUserSchema = z.object({
  * @property {string} email
  * @property {string} createdAt
  * @property {string} updatedAt
- * @property {string} deletedAt
  */
 export const userSchema = z.object({
     userUuid: z.string().optional(),
@@ -39,7 +35,6 @@ export const userSchema = z.object({
     email: z.string().email(),
     createdAt: z.date().optional(),
     updatedAt: z.date().optional(),
-    deletedAt: z.date().optional(),
 });
 
 /**

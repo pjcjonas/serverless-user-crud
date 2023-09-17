@@ -77,7 +77,7 @@ functions:
     timeout: 300
     events:
       - http:
-          path: /users/{user_id}/task
+          path: /users/{user_id}/tasks
           method: post
           cors: true
   getUserTasks:
@@ -85,15 +85,15 @@ functions:
     timeout: 300
     events:
       - http:
-          path: /users/{user_id}/task
+          path: /users/{user_id}/tasks
           method: get
           cors: true
-  getTasks:
-    handler: ./src/handlers/getTasks.handler
+  getTaskInfo:
+    handler: ./src/handlers/getTaskInfo.handler
     timeout: 300
     events:
       - http:
-          path: /users/{user_id}/tasks
+          path: /users/{user_id}/tasks/{task_id}
           method: get
           cors: true
   updateUserTask:
@@ -101,7 +101,7 @@ functions:
     timeout: 300
     events:
       - http:
-          path: /users/{user_id}/task/{task_id}
+          path: /users/{user_id}/tasks/{task_id}
           method: put
           cors: true
   deleteUserTask:
@@ -109,7 +109,7 @@ functions:
     timeout: 300
     events:
       - http:
-          path: /users/{user_id}/task/{task_id}
+          path: /users/{user_id}/tasks/{task_id}
           method: delete
           cors: true
   

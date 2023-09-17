@@ -2,9 +2,11 @@ import { Optional, DataTypes, Model, Sequelize } from "sequelize";
 
 // Set the task model attributes
 export interface TaskAttributes {
-  taskUuid: string;
+  taskUuid?: string;
   userUuid: string;
+  taskName: string;
   taskDescription: string;
+  taskDate: string;
   createdAt?: string
   updatedAt?: string
   deletedAt?: string
@@ -22,6 +24,8 @@ export class Task
 {
   public taskUuid!: string;
   public userUuid!: string;
+  public taskName!: string;
+  public taskDate!: string;
   public taskDescription!: string;
   public createdAt?: string
   public updatedAt?: string
@@ -41,6 +45,14 @@ export const TaskModel = (sequelize?: Sequelize) => {
       type: DataTypes.UUID,
       allowNull: false,
     },
+    taskName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    taskDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
     taskDescription: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -48,7 +60,7 @@ export const TaskModel = (sequelize?: Sequelize) => {
   }, {
     sequelize: sequelize ?? new Sequelize(),
     modelName: 'Tasks',
-    tableName: 'tasks',
+    tableName: 'Tasks',
     timestamps: true,
     deletedAt: true
   });
