@@ -18,9 +18,17 @@ const up = async ({ context: queryInterface }: any) => {
         type: DataTypes.UUID,
         allowNull: false
       },
+      taskName:{
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       taskDescription: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      taskDate:{
+        allowNull: false,
+        type: DataTypes.DATE
       },
       createdAt: {
         allowNull: false,

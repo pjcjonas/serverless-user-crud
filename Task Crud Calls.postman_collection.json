@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "1a1e6e11-024f-4cd4-9c50-d7f6e494f9e3",
+		"name": "Task Crud Calls",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4178253"
+	},
+	"item": [
+		{
+			"name": "Create User Task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"pm.globals.set(\"userUuid\", jsonData.userUuid);\r",
+							"pm.globals.set(\"taskUuid\", jsonData.taskUuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"taskDescription\":\"Slombner yomber tasker wasker is the best there is\",\r\n    \"taskName\":\"Who rocks\",\r\n    \"taskDate\":\"2023-11-11 13:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/local/users/{{userUuid}}/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"local",
+						"users",
+						"{{userUuid}}",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user tasks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/local/users/{{userUuid}}/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"local",
+						"users",
+						"{{userUuid}}",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user task info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"pm.globals.set(\"taskUuid\", jsonData.taskUuid);\r",
+							"pm.globals.set(\"userUuid\", jsonData.userUuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/local/users/{{userUuid}}/tasks/{{taskUuid}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"local",
+						"users",
+						"{{userUuid}}",
+						"tasks",
+						"{{taskUuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user task",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"pm.globals.set(\"taskUuid\", jsonData.taskUuid);\r",
+							"pm.globals.set(\"userUuid\", jsonData.userUuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"taskName\":\"qweasdzxC 123145 4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/local/users/{{userUuid}}/tasks/{{taskUuid}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"local",
+						"users",
+						"{{userUuid}}",
+						"tasks",
+						"{{taskUuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"taskDescription\":\"This is the largest task of them all\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/local/users/{{userUuid}}/tasks/{{taskUuid}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"local",
+						"users",
+						"{{userUuid}}",
+						"tasks",
+						"{{taskUuid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
