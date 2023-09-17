@@ -1,6 +1,11 @@
 import { Optional, DataTypes, Model, Sequelize } from "sequelize";
 
-// Set the user model attributes
+/**
+* UserAttributes
+* @property {string} firstName
+* @property {string} lastName
+* @property {string} email
+ */
 export interface UserAttributes {
   userUuid?: string;
   firstName: string;
@@ -54,8 +59,7 @@ export const UserModel = (sequelize?: Sequelize) => {
   }, {
     sequelize: sequelize ?? new Sequelize(),
     modelName: 'Users',
-    tableName: 'users',
-    timestamps: true,
-    deletedAt: true
+    tableName: 'Users',
+    timestamps: true
   });
 }

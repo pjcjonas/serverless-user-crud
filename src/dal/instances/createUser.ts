@@ -11,5 +11,5 @@ export const createUserInstance = (connections: Sequelize) => async (user: UserA
         lastName: user.lastName,
         email: user.email
     })
-    return {createUserInstance}
+    return createUserInstance
 }

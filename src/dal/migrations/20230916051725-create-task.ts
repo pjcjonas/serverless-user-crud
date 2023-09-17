@@ -29,11 +29,7 @@ const up = async ({ context: queryInterface }: any) => {
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE
-      },
-      deletedAt: {
-        allowNull: false,
-        type: DataTypes.DATE
-      },
+      }
     });
   })
 }

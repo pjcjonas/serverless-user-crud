@@ -3,13 +3,12 @@ import httpErrorHandler from '@middy/http-error-handler'
 import httpHeaderNormalizer from '@middy/http-header-normalizer'
 import httpJsonBodyParser from '@middy/http-json-body-parser'
 import { APIGatewayProxyEvent } from 'aws-lambda'
-import { createUserSchema } from './schemas/userSchema'
+import { CreateUserSchema, createUserSchema } from './schemas/userSchema'
 import { responseBadRequest, responseServerError, responseSuccess } from '../helpers/httpResponse'
-import { User, UserAttributes } from '../dal/models/user'
 import { v4 as uuidv4 } from 'uuid';
-import { models } from '../dal/models'
 import { createUserInstance } from '../dal/instances/createUser'
-import {connect} from "../dal"
+import {cachedDbConnection} from "../dal"
+import { getUserInstance } from '../dal/instances/getUser'
 
 let cache: any = {
     expiry: undefined,
@@ -20,33 +19,41 @@ let cache: any = {
         DB_HOST: process.env.DB_HOST ?? '',
         DB_PORT: Number(process.env.DB_PORT) ?? 3306,
         DB_DIALECT: process.env.DB_DIALECT,
-    }
+    },
+    db: undefined
 }
 
-// aws handler to return hello world with typescript and middy
+/**
+ * POST /users
+ * @summary Create a new user
+ * @tags UserAPI
+ * @param {CreateUserSchema} request.body.required
+ */
 const handler: middy.MiddyfiedHandler = middy(async (event: APIGatewayProxyEvent, context: any) => {
-
-    // Parse the request body from the event
     const body = createUserSchema.safeParse(event.body);
-    // If the body is not valid, return a 400 Bad Request response
     if (!body.success) {
         return responseBadRequest();
     }
 
-    try {
-        console.log("~~: cache.env: ".repeat(200), cache.env , "~~".repeat(200))
-        console.log("~~: process.env: ".repeat(200), process.env , "~~".repeat(200))
+    const user: CreateUserSchema = body.data;
+    cache = await cachedDbConnection(cache)
 
-        const connection = await connect(cache.env)
-        const userInstance = await createUserInstance(connection)({
-            userUuid: uuidv4(),
-            firstName: body.data.firstName,
-            lastName: body.data.lastName,
-            email: body.data.email
+    try {
+
+        const checkUser = await getUserInstance(cache.db)({
+            email: user.email
         })
-        return responseSuccess(userInstance);
+
+        if (checkUser) return responseBadRequest({message: 'User already exists'});
+        
+        const userInstance = await createUserInstance(cache.db)({
+            userUuid: uuidv4(),
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
+        })
+        return responseSuccess({user: userInstance});
     } catch (error) {
-        console.log("~~~~".repeat(100), error, "~~~~".repeat(100))
         return responseServerError(error);
     }
 })

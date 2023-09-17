@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "start:setup": "node ./setup.mjs",
+    "start:offline": "yarn serverless offline start --stage local",
     "start:deploy": "NODE_ENV=development serverless deploy -s local",
     "start:doctor": "NODE_ENV=development serverless doctor",
     "start:deployw": "set NODE_ENV=development& serverless deploy -s local",
@@ -13,8 +14,8 @@
     "startw": "yarn run start:setup && yarn run start:deployw",
     "migration:up": "env IS_OFFLINE=true serverless invoke local --function migrationUp",
     "migration:down": "env IS_OFFLINE=true serverless invoke local --function migrationDown",
-    "migration:upw": "serverless invoke local --function migrationUp",
-    "migration:downw": "serverless invoke local --function migrationDown"
+    "migration:upw": "serverless invoke local --function migrationUp --data local",
+    "migration:downw": "serverless invoke local --function migrationDown --data local"
   },
   "repository": {
     "type": "git",
