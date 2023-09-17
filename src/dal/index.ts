@@ -1,18 +1,22 @@
 import { Sequelize } from "sequelize";
+import mysql2 from 'mysql2'
 
-const connect = (env: any): Sequelize => {
-    const sequelize = new Sequelize({
-        dialect: "mysql",
+export const connect = (env: any): Sequelize => {
+    const sequelize = new Sequelize(env.DB_DATABASE, env.DB_USERNAME, env.DB_PASSWORD,{
         host: env.DB_HOST,
-        port: env.DB_PORT,
-        database: env.DB_DATABASE,
-        username: env.DB_USERNAME,
-        password: env.DB_PASSWORD,
-        logging: false
+        port: Number(env.DB_PORT) || 3306,
+        dialect: "mysql",
+        dialectModule: env.DB_DIALECT === "mysql" ? mysql2: undefined
     });
-
+    console.log("connect".repeat(200), env , "connect".repeat(200))
     return sequelize;
 }
 
-export {connect}
+export const cachedDbConnection = (cache: any) => {
+    if (cache.dbConnection) return cache
+    return {
+      ...cache,
+      db: connect(cache.env),
+    }
+  }
 

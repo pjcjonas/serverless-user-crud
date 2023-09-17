@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "start:setup": "node ./setup.mjs",
+    "start:offline": "yarn serverless offline start --stage local",
     "start:deploy": "NODE_ENV=development serverless deploy -s local",
     "start:doctor": "NODE_ENV=development serverless doctor",
     "start:deployw": "set NODE_ENV=development& serverless deploy -s local",
@@ -13,8 +14,8 @@
     "startw": "yarn run start:setup && yarn run start:deployw",
     "migration:up": "env IS_OFFLINE=true serverless invoke local --function migrationUp",
     "migration:down": "env IS_OFFLINE=true serverless invoke local --function migrationDown",
-    "migration:upw": "serverless invoke local --function migrationUp",
-    "migration:downw": "serverless invoke local --function migrationDown"
+    "migration:upw": "serverless invoke local --function migrationUp --data local",
+    "migration:downw": "serverless invoke local --function migrationDown --data local"
   },
   "repository": {
     "type": "git",
@@ -43,13 +44,18 @@
     "@middy/http-json-body-parser": "^4.6.2",
     "@types/sequelize": "^4.28.15",
     "@types/umzug": "^2.3.4",
+    "@types/uuid": "^9.0.4",
+    "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1455.0",
+    "kebabcase-keys": "^1.0.0",
     "middy": "^0.36.0",
     "mysql2": "^3.6.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.33.0",
     "sequelize-typescript": "^2.1.5",
     "serverless-offline": "^12.0.4",
-    "umzug": "^3.3.1"
+    "umzug": "^3.3.1",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.2"
   }
 }

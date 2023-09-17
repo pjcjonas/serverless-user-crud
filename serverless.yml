@@ -18,8 +18,7 @@ provider:
   endpointType: PRIVATE
   deploymentBucket:
     name: sls-stack-local-user-deployment
-  environment:
-    PARAMETER_STORE_PATH: ${env:PARAMETER_STORE_PATH, ''}
+  environment: ${file(environment-${self:provider.stage}.yml)}
 
 functions:
   hello:
@@ -41,6 +40,7 @@ functions:
   # User functions
   createUser:
     handler: ./src/handlers/createUser.handler
+    timeout: 300
     events:
       - http:
           path: /users
@@ -48,6 +48,7 @@ functions:
           cors: true
   getUser:
     handler: ./src/handlers/getUser.handler
+    timeout: 300
     events:
       - http:
           path: /users/{user_id}
@@ -55,6 +56,7 @@ functions:
           cors: true
   getUsers:
     handler: ./src/handlers/getUsers.handler
+    timeout: 300
     events:
       - http:
           path: /users
@@ -62,6 +64,7 @@ functions:
           cors: true
   updateUser:
     handler: ./src/handlers/updateUser.handler
+    timeout: 300
     events:
       - http:
           path: /users/{user_id}
@@ -71,6 +74,7 @@ functions:
   # User Task functions
   createUserTask:
     handler: ./src/handlers/createUserTask.handler
+    timeout: 300
     events:
       - http:
           path: /users/{user_id}/task
@@ -78,6 +82,7 @@ functions:
           cors: true
   getUserTasks:
     handler: ./src/handlers/getUserTasks.handler
+    timeout: 300
     events:
       - http:
           path: /users/{user_id}/task
@@ -85,13 +90,15 @@ functions:
           cors: true
   getTasks:
     handler: ./src/handlers/getTasks.handler
+    timeout: 300
     events:
       - http:
-          path: /users/{user_id}/task
+          path: /users/{user_id}/tasks
           method: get
           cors: true
   updateUserTask:
     handler: ./src/handlers/updateUserTask.handler
+    timeout: 300
     events:
       - http:
           path: /users/{user_id}/task/{task_id}
@@ -99,6 +106,7 @@ functions:
           cors: true
   deleteUserTask:
     handler: ./src/handlers/deleteUserTask.handler
+    timeout: 300
     events:
       - http:
           path: /users/{user_id}/task/{task_id}

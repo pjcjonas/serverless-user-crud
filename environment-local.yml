@@ -1,0 +1,7 @@
+DB_DIALECT: ${env:DB_DIALECT, 'mysql'}
+DB_HOST: ${env:DB_HOST, 'localhost'}
+DB_PORT: ${env:DB_PORT, '3306'}
+DB_USERNAME: ${env:DB_USERNAME, 'root'}
+DB_PASSWORD: ${env:DB_PASSWORD, 'testpassword'}
+DB_DATABASE: ${env:DB_DATABASE, 'task_master'}
+PARAMETER_STORE_PATH: ${env:PARAMETER_STORE_PATH, ''}
